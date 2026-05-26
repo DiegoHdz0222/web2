@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silver Dragon - Take Down The Flag</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-fondo: #0d0d0d;
+            --color-piedra: #1a1a1a;
+            --color-oro: #c5a059;
+            --color-oro-hover: #e8c678;
+            --color-rojo-sangre: #660000;
+            --color-texto: #e0d8c3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        /* ----- NAVEGACIÓN ----- */
+        nav {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--color-oro);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--color-oro);
+            font-weight: 800;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--color-texto);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-oro);
+        }
+
+        /* ----- CABECERA (HERO) ----- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('portada2.jpeg') no-repeat center center/cover;
+            border-bottom: 3px solid var(--color-rojo-sangre);
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            color: var(--color-oro);
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.8);
+            margin-bottom: 10px;
+        }
+
+        .hero-subtitle {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 40px;
+            letter-spacing: 5px;
+        }
+
+        .btn-primario {
+            padding: 15px 40px;
+            background-color: transparent;
+            color: var(--color-oro);
+            border: 2px solid var(--color-oro);
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+        }
+
+        .btn-primario:hover {
+            background-color: var(--color-oro);
+            color: var(--color-fondo);
+            box-shadow: 0 0 20px var(--color-oro);
+        }
+
+        /* ----- SECCIONES ----- */
+        section {
+            padding: 80px 10%;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: var(--color-oro);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "⚔";
+            display: block;
+            font-size: 2rem;
+            color: var(--color-rojo-sangre);
+            margin-top: 10px;
+        }
+
+        /* ----- ACERCA DEL JUEGO Y VIDEO ----- */
+        .acerca-container {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            background-color: var(--color-piedra);
+            padding: 40px;
+            border-left: 5px solid var(--color-oro);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .acerca-texto {
+            font-size: 1.3rem;
+            flex: 1;
+        }
+
+        .acerca-video-wrapper {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .acerca-video {
+            width: 100%;
+            max-width: 560px;
+            border: 2px solid var(--color-oro);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+            background-color: #000;
+        }
+
+        /* ----- GALERÍA ----- */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .galeria-item {
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--color-piedra);
+            transition: border-color 0.3s;
+            cursor: pointer;
+            aspect-ratio: 16/9;
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: brightness(0.8) contrast(1.1);
+        }
+
+        .galeria-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.1) contrast(1.2);
+        }
+
+        .galeria-item:hover {
+            border-color: var(--color-oro);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.5);
+        }
+
+        /* ----- PANTALLA COMPLETA (LIGHTBOX) ----- */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.activo {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border: 3px solid var(--color-oro);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .lightbox-cerrar {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--color-oro);
+            font-size: 3rem;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            user-select: none;
+            transition: color 0.3s;
+        }
+
+        .lightbox-cerrar:hover {
+            color: var(--color-oro-hover);
+        }
+
+        /* ----- FOOTER ----- */
+        footer {
+            background-color: #050505;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #333;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            color: #888;
+        }
+
+        /* ----- RESPONSIVO ----- */
+        @media (max-width: 900px) {
+            .acerca-container { 
+                flex-direction: column; 
+                text-align: center;
+            }
+            .acerca-video-wrapper {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3rem; }
+            .hero-subtitle { font-size: 1.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">SILVER DRAGON</div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#historia">La Historia</a></li>
+            <li><a href="#galeria">Galería</a></li>
+        </ul>
+    </nav>
+
+    <header id="inicio">
+        <h1 class="hero-title">Silver Dragon</h1>
+        <h2 class="hero-subtitle">"Take Down The Flag"</h2>
+        <a href="#galeria" class="btn-primario">Explorar el Reino</a>
+    </header>
+
+    <section id="historia">
+        <h2 class="section-title">Forja tu Legado</h2>
+        <div class="acerca-container">
+            <div class="acerca-texto">
+                <p>Adéntrate en un mundo asolado por la guerra donde la estrategia y el acero dictan el destino de los reinos. En <strong>Silver Dragon: Take Down The Flag</strong>, te enfrentarás a enemigos implacables en fortalezas de piedra, campamentos y herrerías ancestrales.</p>
+                <br>
+                <p>Equípate con armas de la época, desde letales ballestas hasta armamento de pólvora temprana, y lidera a tu bando para capturar el estandarte enemigo. ¿Tienes el valor para derribar su bandera y alzar la tuya hacia la victoria?</p>
+                <br>
+                <p>En este hogareño juego de captura la bandera podrás tomar el lugar de un caballero o incluso mercenario para experimentar el clásico modo de juego que ha dado lugar a escenas en el mundo del gaming tanto épicas como divertidas.</p>
+            </div>
+            <div class="acerca-video-wrapper">
+                <video class="acerca-video" controls>
+                    <source src="videotrailer.mp4" type="video/mp4">
+                    Tu navegador no admite la reproducción de este video.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria">
+        <h2 class="section-title">El Campo de Batalla</h2>
+        <div class="galeria-grid">
+            <div class="galeria-item"><img src="captura01.png" alt="Vista de la fortaleza"></div>
+            <div class="galeria-item"><img src="captura02.png" alt="Torreón y murallas"></div>
+            <div class="galeria-item"><img src="captura03.png" alt="Tienda de campaña militar"></div>
+            <div class="galeria-item"><img src="captura04.png" alt="Interior oscuro del castillo"></div>
+            <div class="galeria-item"><img src="captura05.png" alt="Jugador con armadura e interfaz"></div>
+            <div class="galeria-item"><img src="captura06.png" alt="La herrería del pueblo"></div>
+            <div class="galeria-item"><img src="captura07.png" alt="Campamento junto al castillo"></div>
+            <div class="galeria-item"><img src="captura08.png" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura1.jpeg" alt="Vista de la fortaleza"></div>
+            <div class="galeria-item"><img src="captura2.jpeg" alt="Torreón y murallas"></div>
+            <div class="galeria-item"><img src="captura3.jpeg" alt="Tienda de campaña militar"></div>
+            <div class="galeria-item"><img src="captura4.jpeg" alt="Interior oscuro del castillo"></div>
+            <div class="galeria-item"><img src="captura5.jpeg" alt="Jugador con armadura e interfaz"></div>
+            <div class="galeria-item"><img src="captura6.jpeg" alt="La herrería del pueblo"></div>
+            <div class="galeria-item"><img src="captura7.jpeg" alt="Campamento junto al castillo"></div>
+            <div class="galeria-item"><img src="captura8.jpeg" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura9.jpeg" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura10.jpeg" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura11.jpeg" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura12.jpeg" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura13.jpeg" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura14.jpeg" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura15.jpeg" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura16.jpeg" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura17.jpeg" alt="Arquitectura medieval"></div>
+            <div class="galeria-item"><img src="captura18.jpeg" alt="Arquitectura medieval"></div>
+        </div>
+    </section>
+
+    <div id="visorLightbox" class="lightbox">
+        <span class="lightbox-cerrar">&times;</span>
+        <img id="imagenLightbox" src="" alt="Vista ampliada">
+    </div>
+
+    <footer>
+        <h3 style="margin-bottom: 15px; font-size: 1.5rem;">Silver Dragon Team</h3>
+        <p>&copy; 2026 Todos los derechos reservados. Preparado para la batalla.</p>
+    </footer>
+
+    <script>
+        const imagenesGaleria = document.querySelectorAll('.galeria-grid img');
+        const lightbox = document.getElementById('visorLightbox');
+        const lightboxImg = document.getElementById('imagenLightbox');
+
+        // Al hacer clic en cualquier imagen de la galería
+        imagenesGaleria.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('activo');
+            });
+        });
+
+        // Cerrar al hacer clic en la "X" o fuera de la imagen en el fondo oscuro
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg) {
+                lightbox.classList.remove('activo');
+            }
+        });
+    </script>
+
+</body>
+</html>
